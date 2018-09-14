@@ -7,9 +7,16 @@
     <tr>
       <td>Razón social</td>
       <td>Fecha</td>
-      <td>Total factura</td>
+      <td>Base imponible</td>
       <td></td>
       <td></td>
+    </tr>
+    <tr *ngFor="let factura of facturas">
+      <td>{{factura.nombre}}</td>
+      <td>{{factura.fecha}}</td>
+      <td>{{factura.base}}</td>
+      <td routerLink="/editar-factura/{{factura._id}}">Editar</td>
+      <td (click)="eliminarFra(factura._id)">Eliminar</td>
     </tr>
   </table>
 </div>

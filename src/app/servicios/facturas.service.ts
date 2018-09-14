@@ -21,4 +21,40 @@ export class FacturasService {
                   )
   }
 
+  getFacturas() {
+    return this.http.get(this.url)
+              .pipe(
+                map((resp: any)=>{
+                  return resp;
+                })
+              )
+  }
+
+  getFactura(id) {
+    return this.http.get(this.url + `/${id}`)
+              .pipe(
+                map((resp: any)=>{
+                  return resp;
+                })
+              )
+  }
+
+  putFactura(id, factura) {
+    return this.http.put(this.url + `/${id}`, factura)
+              .pipe(
+                map((resp: any)=>{
+                  return resp.ok;
+                })
+              )
+  }
+
+  deleteFactura(id) {
+    return this.http.delete(this.url + `/${id}`)
+                .pipe(
+                  map((resp: any)=>{
+                    return resp;
+                  })
+                )
+  }
+
 }
