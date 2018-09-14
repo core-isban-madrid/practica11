@@ -1,0 +1,74 @@
+<div class="cuerpo">
+  <div class="cabecera">
+    <h1>Contabilizar nueva factura</h1>
+    <button routerLink="/">Regresar</button>
+  </div>
+  <form [formGroup]="formFra" (ngSubmit)="crearFactura()">
+    <div>
+      <label for="nombre">Nombre
+        <span class="novalido" *ngIf="!formFra.get('nombre').value && formFra.get('nombre').touched">
+          Campo obligatorio
+        </span>
+        <span class="novalido" *ngIf="formFra.get('nombre').value && formFra.get('nombre').hasError('minlength')">
+          El nombre debe tener más de 3 caracteres
+        </span>
+      </label>
+      <input type="text" id="nombre" formControlName="nombre">
+    </div>
+    <div>
+      <label for="cif">CIF
+        <span class="novalido" *ngIf="formFra.get('cif').value && formFra.get('cif').hasError('checkCif')">
+          Letra del CIF no válida
+        </span>
+        <span class="novalido" *ngIf="formFra.get('cif').value &&
+                                      !formFra.get('cif').hasError('checkCif') && 
+                                      formFra.get('cif').hasError('minlength')">
+          El CIF debe tener 9 caracteres
+        </span>
+      </label>
+      <input type="text" id="cif" formControlName="cif" maxlength="9">
+    </div>
+    <div>
+      <label for="numero">Número Fra.</label>
+      <input type="text" id="numero" formControlName="numero">
+    </div>
+    <div>
+      <label for="fecha">Fecha Fra.</label>
+      <input type="date" id="fecha" formControlName="fecha" value="{{fechaActual | date: 'yyyy-MM-dd'}}">
+    </div>
+    <div>
+      <label for="base">Base imponible</label>
+      <input type="number" id="base" formControlName="base">
+    </div>
+    <div>
+      <label for="tipo">% IVA</label>
+      <select id="tipo" formControlName="tipo">
+        <option value=0>0 %</option>
+        <option value=0.04>4 %</option>
+        <option value=0.1>10 %</option>
+        <option value=0.21>21 %</option>
+      </select>
+    </div>
+    <div>
+      <label for="iva">Importe IVA</label>
+      <input type="text" id="iva" formControlName="iva" readonly > <!--value="{{this.formFra.get('iva').value | currency: 'EUR': 'symbol'}}"-->
+    </div>
+    <div>
+      <label for="total">Importe Total IVA incluido</label>
+      <input type="number" id="total" formControlName="total" readonly>
+    </div>
+    <div formGroupName="pago">
+      <div>
+        <label for="vencimiento">Vencimiento</label>
+        <input type="text" id="vencimiento" formControlName="vencimiento">
+      </div>
+      <div>
+        <label for="formaPago">Forma de pago</label>
+        <input type="text" id="formaPago" formControlName="formaPago">
+      </div>
+    </div>
+    <div>
+      <button type="submit">Contabilizar Factura</button>
+    </div>
+  </form>
+</div>
